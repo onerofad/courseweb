@@ -13,7 +13,7 @@ export const Navbar = () => {
 
     if(sessionStorage.getItem("emailId")){
         return(
-<Segment vertical raised style={{paddingTop: 0, paddingBottom: 0}}>
+            <Segment vertical raised style={{paddingTop: 0, paddingBottom: 0}}>
             <Menu
                 size="big"
                 borderless
@@ -47,7 +47,7 @@ export const Navbar = () => {
                 <Menu.Item>
                     <Icon name="add to cart" size="large" />
                 </Menu.Item>
-                <Menu.Item position="right"   style={{paddingRight: 120}}>
+                <Menu.Item position="right">
                   <Dropdown inline floating text={<Icon inverted name="user outline" circular />}>
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={() => navigate("/dashboard")}>Dashboard</Dropdown.Item>
@@ -56,7 +56,10 @@ export const Navbar = () => {
                         <Dropdown.Item onClick={() => logout()}>Log out</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                </Menu.Item>               
+                </Menu.Item> 
+                <Menu.Item>
+                    My Learning
+                </Menu.Item>              
             </Menu>
 
         </Segment>
@@ -72,7 +75,7 @@ export const Navbar = () => {
                 <Menu.Item>
                     <Header as="h2" secondary>
                         <Icon size="tiny" name="student" />
-                        <Header.Content>CourseWeb</Header.Content>
+                        <Header.Content><Link style={{color: '#000'}} to="/">CourseWeb</Link></Header.Content>
                     </Header>
                 </Menu.Item>
                 {/*<Menu.Item>
@@ -80,8 +83,7 @@ export const Navbar = () => {
                 </Menu.Item>*/}
                 <Menu.Item >
                     <Search
-                        placeholder="Search for anything"
-                          
+                        placeholder="Search for anything"    
                     />
                 </Menu.Item>
                 <Menu.Item>

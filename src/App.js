@@ -5,6 +5,7 @@ import { Signup } from "./components/Signup";
 import { Login } from "./components/Login";
 import { Dashboard } from "./components/Dashboard";
 import { Profile } from "./components/Profile";
+import { CoursePage } from "./components/CoursePage";
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {
@@ -26,6 +27,8 @@ const App = () => {
             <Route path="login" element={<Login />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="course_page" element={<CoursePage />} />
+
 
           </Routes>
         </BrowserRouter>
@@ -39,6 +42,8 @@ const App = () => {
             <Route path="login" element={<Login />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="course_page" element={<CoursePage />} />
+
 
 
           </Routes>

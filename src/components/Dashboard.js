@@ -16,12 +16,10 @@ export const Dashboard = () => {
             getCourseWebUsers().get("/")
             .then(response => setusers(response.data))
         }
-    
-
     return(
         <>
             <Navbar />
-            <Segment vertical style={{padding: 50, backgroundColor: '#f6f6f6'}}>
+            <Segment vertical style={{padding: 30, backgroundColor: '#f6f6f6'}}>
                 <Grid container columns={2}>
                     {
                         users.map(u => {

@@ -1,6 +1,7 @@
-import { Grid, Header, Segment, Image, Card, Icon, Rating} from "semantic-ui-react"
+import { Grid, Header, Segment, Card, Icon, Rating} from "semantic-ui-react"
 import Carousel from "react-multi-carousel"
 import 'react-multi-carousel/lib/styles.css'
+import { Link } from "react-router-dom"
 
 export const DashboardCourses = () => {
 
@@ -42,7 +43,9 @@ export const DashboardCourses = () => {
                                 <img alt="" src="/images/course2.jpg" />
                                     <Card.Content>
                                     <Card.Header>
-                                        Web development course with React + Django rest framework
+                                        <Link to="/course_page" style={{color: '#000'}}>
+                                            Web development course with React + Django rest framework
+                                        </Link>
                                     </Card.Header>
                                     <Card.Meta>
                                         <span className='date'>By John Doe</span>

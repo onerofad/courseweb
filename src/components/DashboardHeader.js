@@ -23,8 +23,7 @@ export const DashboardHeader = () => {
                 </Menu.Item>
                 <Menu.Item >
                     <Search
-                        placeholder="Search for anything"
-                          
+                        placeholder="Search for anything"                  
                     />
                 </Menu.Item>
                 <Menu.Item>
