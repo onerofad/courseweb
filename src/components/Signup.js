@@ -1,4 +1,4 @@
-import { Segment, Grid, Form, Button, Header, Icon, TextArea } from "semantic-ui-react"
+import { Segment, Grid, Form, Button, Header, Icon } from "semantic-ui-react"
 import { UserHeader } from "./UserHeader"
 import { Footer } from "./Footer"
 import { Link, useNavigate } from "react-router-dom"

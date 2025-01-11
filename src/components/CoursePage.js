@@ -1,13 +1,38 @@
-import { Grid, Header, Segment, Placeholder, Button, List, Image, Icon, Embed } from "semantic-ui-react"
+import { Grid, Header, Segment, Button, List, Image, Icon, Input } from "semantic-ui-react"
 import { Navbar } from "./Navbar"
 import {Footer} from './Footer'
 import { useEffect, useState } from "react"
 import { getVideos } from "../API/sila_api"
+import ReactPlayer from "react-player"
 
 export const CoursePage = () => {
 
     const [url, seturl] = useState('')
     const [videos, setvideos] = useState([])
+    const [active, setactive] = useState(false)
+    const [playing, setplaying] = useState(false)
+    const [volume, setVolume] = useState(0.1)
+    const [courseTitle, setcourseTitle] = useState("Intro to programming in C++")
+    const [duration, setDuration] = useState(0)
+    const [played, setPlayed] = useState(0)
+    const [muted, setMuted] = useState(false)
+
+    const handleVideo = (video) =>{
+        seturl(video)
+        setactive(!active)
+    }
+
+    const handleVolumePlus = () => {
+        if(volume >= 0.1 && volume <= 0.9){
+            setVolume(volume + 0.1)
+        }
+    }
+      
+    const handleVolumeMinus = () => {
+        if(volume >= 0.2 && volume <= 1 ){
+            setVolume(volume - 0.1)
+        }
+    }
 
     useEffect(() => {
         getAllVideos()
@@ -18,13 +43,13 @@ export const CoursePage = () => {
         .then(response => setvideos(response.data))
     } 
 
-    const startVideo = () => {
-        
-    }
-
     let videoList
     videoList  = videos.map(m => (
-        <List.Item onClick={() => seturl(m.uploaded_video)}>
+        <List.Item 
+            onClick={() => handleVideo(m.uploaded_video)}
+            id="1"
+            active={active}
+        >
             <Image size="mini" src="/images/course2.jpg" />
             <List.Content>
                 <List.Header>
@@ -70,51 +95,144 @@ export const CoursePage = () => {
                         </Grid.Row>
                     </Grid>
                 </Segment>
-                <Segment vertical style={{padding: 30, backgroundColor: '#f6f6f6'}}>
+                <Segment inverted vertical style={{padding: 30, backgroundColor: '#f6f6f6'}}>
                     <Grid container>
                         <Grid.Row>
                             <Grid.Column>
                                 <Segment>
                                     <Grid divided>
                                         <Grid.Row>
-                                        <Grid.Column verticalAlign="middle" width={8}>
-                                        <Segment padded  vertical style={{height: 350}}>
-                                            <Grid>
+                                        <Grid.Column verticalAlign="middle" width={10}>
+                                        <Segment padded  vertical style={{}}>
+                                            <Grid verticalAlign="middle">
                                                 <Grid.Row>
                                                     <Grid.Column>
-                                                        <Segment vertical secondary style={{height: 270, }}>
-                                                            <Embed
-                                                                brandedUI
-                                                                source="cloudinary"
-                                                                url={url}
-                                                            />
-                                                        </Segment>
-                                                        <Segment secondary style={{height: 50,}}>
-                                                            <Grid divided verticalAlign="middle" columns={3}>
-                                                                <Grid.Column textAlign="center"> 
-                                                                    <Header as="h4">
-                                                                        <Icon size="large" name="video play" />
-                                                                        <Header.Content>
-                                                                            0.04/4.02
-                                                                        </Header.Content>
+                                                        <Segment textAlign="center" vertical secondary style={{height: 320, }}>
+                                                            {
+                                                                url === '' ?
+                                                                    <Header as="h2" icon>
 
+                                                                        CourseWeb Video
+                                                                        <Icon size="huge" name="right circle arrow" />
                                                                     </Header>
+                                                                    :
+                                                                    <ReactPlayer
+                                                                        url={url}
+                                                                        width="640"
+                                                                        height="360"
+                                                                        controls={false}
+                                                                        playing={playing}   
+                                                                        volume={volume}
+                                                                        muted={muted}
+                                                                        onDuration={(period) => setDuration(period)}
+                                                                        onProgress={(progress) => {
+                                                                            setPlayed(progress.playedSeconds)
+                                                                        }}                                                  
+                                                                    /> 
+                                                            }
+                                                        </Segment>
+                                                        <Segment secondary style={{}}>  
+                                                            
+ 
+                                                            <Header as="h4">
+                                                                {"Title:" + "   " + courseTitle}
+                                                                <Header.Content style={{float: 'right'}}>
+                                                                    {
+                                                                        played < 3600 ?
+                                                                        new Date(played * 1000).toISOString().substring(14, 19)
+                                                                        :
+                                                                        new Date(played * 1000).toISOString().substring(11, 16)
+                                                                       
+                                                                    }
+                                                                </Header.Content>
+                                                                <Header.Subheader>
+                                                                    {
+                                                            
+                                                                    duration < 3600 ?
+                                                                    "duration: " + new Date(duration * 1000).toISOString().substring(14, 19)
+                                                                    :
+                                                                  
+                                                                    "duration: " + new Date(duration * 1000).toISOString().substring(11, 16)
+                                                                    
+                                                                    }
+                                                                </Header.Subheader>
+                                                            </Header>           
+                                                            <Grid divided verticalAlign="middle">
+                                                                <Grid.Column width={3} verticalAlign="middle"> 
+                                                                    {
+                                                                        playing ?
+                                                                        <Button fluid secondary size="tiny" compact 
+                                                                            onClick={() => setplaying(!playing)} 
+                                                                        >
+                                                                            <Icon name="pause circle" />
+                                                                            pause
+                                                                        </Button>  :
+
+                                                                        <Button fluid secondary size="tiny"  compact
+                                                                            onClick={() => setplaying(!playing)} 
+                                                                        >
+                                                                            <Icon name="video play" />
+                                                                            play
+                                                                        </Button>  
+                                                                    }
+                                                                                        
                                                                 </Grid.Column>
-                                                                <Grid.Column> 
-                                                                    <Header as="h4">
-                                                                        <Icon size="large" name="volume up" />
-                                                                        <Header.Content>
-                                                                            Volume
-                                                                        </Header.Content>
-                                                                    </Header>    
+                                                                <Grid.Column width={10}> 
+                                                                    <Grid verticalAlign="middle">
+                                                                        <Grid.Row>
+                                                                            <Grid.Column width={5}>
+                                                                                <Button 
+                                                                                    fluid 
+                                                                                    size="tiny" 
+                                                                                    secondary 
+                                                                                    compact
+                                                                                    onClick={handleVolumeMinus}
+                                                                                >
+                                                                                    <Icon name="volume down" />
+                                                                                    vol
+                                                                                </Button>
+                                                                            </Grid.Column>
+                                                                            <Grid.Column width={6}>
+                                                                                <Input                                                                                     type="range"
+                                                                                    max="1"
+                                                                                    value={volume}
+                                                                                    fluid
+                                                                                    
+                                                                                />
+                                                                            </Grid.Column>
+                                                                            <Grid.Column width={5}>
+                                                                                 <Button 
+                                                                                    fluid 
+                                                                                    size="tiny" 
+                                                                                    secondary 
+                                                                                    compact
+                                                                                    onClick={handleVolumePlus}
+                                                                                >
+                                                                                    <Icon name="volume up" />
+                                                                                    vol
+                                                                                </Button>
+                                                                            </Grid.Column>
+                                                                        </Grid.Row>
+                                                                    </Grid>        
                                                                 </Grid.Column>
-                                                                <Grid.Column> 
-                                                                    <Header as="h4">
-                                                                        <Icon size="large" name="expand" />
-                                                                        <Header.Content>
-                                                                            Full Screen
-                                                                        </Header.Content>
-                                                                    </Header>
+                                                                <Grid.Column verticalAlign="middle" width={3}> 
+                                                                {
+                                                                        muted ?
+                                                                        <Button fluid secondary size="tiny" compact 
+                                                                            onClick={() => setMuted(!muted)} 
+                                                                        >
+                                                                            <Icon name="unmute" />
+                                                                            unmute
+                                                                        </Button>  :
+
+                                                                        <Button fluid secondary size="tiny"  compact
+                                                                            onClick={() => setMuted(!muted)} 
+                                                                        >
+                                                                            <Icon name="mute" />
+                                                                            mute
+                                                                        </Button>  
+                                                                    }
+                 
                                                                 </Grid.Column>
                                                             </Grid>
                                                         </Segment>
@@ -123,9 +241,9 @@ export const CoursePage = () => {
                                             </Grid>
                                         </Segment>
                                         </Grid.Column>
-                                        <Grid.Column width={8}>
+                                        <Grid.Column width={6}>
                                             <Header dividing content="Course Content" />
-                                            <List verticalAlign="middle" selection link ordered relaxed divided style={{height: 300, overflowY: 'auto'}}>
+                                            <List verticalAlign="middle" link ordered relaxed divided style={{height: 420, overflowY: 'auto'}}>
                                                 {videoList}
                                             </List>
                                         </Grid.Column>

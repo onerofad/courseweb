@@ -1,4 +1,4 @@
-import { Grid, Header, Segment, Image, Card, Icon, Rating} from "semantic-ui-react"
+import { Grid, Header, Segment, Card, Icon, Rating} from "semantic-ui-react"
 import Carousel from "react-multi-carousel"
 import 'react-multi-carousel/lib/styles.css'
 
