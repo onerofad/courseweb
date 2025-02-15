@@ -16,11 +16,14 @@ export const CoursePage = () => {
     const [duration, setDuration] = useState(0)
     const [played, setPlayed] = useState(0)
     const [muted, setMuted] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const handleVideo = (video) =>{
         seturl(video)
         setactive(!active)
     }
+
+    const handleLoading = () => setLoading(true)
 
     const handleVolumePlus = () => {
         if(volume >= 0.1 && volume <= 0.9){
@@ -42,6 +45,10 @@ export const CoursePage = () => {
         getVideos().get("/")
         .then(response => setvideos(response.data))
     } 
+
+    const removeLoading = () => {
+        alert("hello")
+    }
 
     let videoList
     videoList  = videos.map(m => (
@@ -107,15 +114,14 @@ export const CoursePage = () => {
                                             <Grid verticalAlign="middle">
                                                 <Grid.Row>
                                                     <Grid.Column>
-                                                        <Segment textAlign="center" vertical secondary style={{height: 320, }}>
+                                                        <Segment textAlign="center" vertical raised style={{height: 320, }}>
                                                             {
                                                                 url === '' ?
                                                                     <Header as="h2" icon>
-
                                                                         CourseWeb Video
                                                                         <Icon size="huge" name="right circle arrow" />
                                                                     </Header>
-                                                                    :
+                                                                    : 
                                                                     <ReactPlayer
                                                                         url={url}
                                                                         width="640"
@@ -127,11 +133,12 @@ export const CoursePage = () => {
                                                                         onDuration={(period) => setDuration(period)}
                                                                         onProgress={(progress) => {
                                                                             setPlayed(progress.playedSeconds)
-                                                                        }}                                                  
+                                                                        }} 
+                                                                        onReady={handleLoading}
                                                                     /> 
                                                             }
                                                         </Segment>
-                                                        <Segment secondary style={{}}>  
+                                                        <Segment raised style={{}}>  
                                                             
  
                                                             <Header as="h4">

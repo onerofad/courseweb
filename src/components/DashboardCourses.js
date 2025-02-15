@@ -63,7 +63,6 @@ export const DashboardCourses = () => {
                                         </Card.Header>
                                     </Card.Content>
                                 </Card>
-                                
                             </div>
                             <div>
                             <Card raised>
@@ -135,12 +134,10 @@ export const DashboardCourses = () => {
                                             19,500
                                         </Card.Header>
                                     </Card.Content>
-                                </Card>
+                            </Card>
                                 <br/>
-                            </div>
-                           
+                            </div> 
                         </Carousel>;
-
                         </Segment>  
                     </Grid.Column>
                 </Grid.Row>
