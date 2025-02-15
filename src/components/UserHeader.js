@@ -8,7 +8,7 @@ export const UserHeader = () => {
                 <Menu.Item>
                     <Header as="h2" secondary>
                         <Icon size="tiny" name="student" />
-                        <Header.Content>CourseWeb</Header.Content>
+                        <Header.Content>CourseWeb Tutorial</Header.Content>
                     </Header>
                 </Menu.Item>
             </Menu>
